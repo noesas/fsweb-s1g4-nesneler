@@ -13,10 +13,12 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 	
 	Örnek MenuElemaniOlustur('Cheeseburger', 8, 'Burgerler') şunu döndürmeli: {isim: 'Cheeseburger', fiyat: 8, kategori: 'Burgerler'}
 */
-
-
-function MenuElemaniOlustur(/*Kodlar buraya*/){
-	/*Kodlar buraya*/
+function MenuElemaniOlustur(isim, fiyat, kategori) {
+	return { 
+		isim: isim, 
+		fiyat: fiyat, 
+		kategori: kategori 
+	};
 }
 
 
@@ -31,10 +33,11 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
 */
 
+console.log(MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar"))
 
 
 /* Görev 2: 
-	Özel bir öğle yemeği yiyorsun! Öğretmen ve öğrencilere %25, diğer kişilere %10 indirim var. Aşağıdaki burger nesnesine, indirimi fiyatı otomatik olarak hesaplayan bir metot ekleyin.
+	AşağıdakiÖzel bir öğle yemeği yiyorsun! Öğretmen ve öğrencilere %25, diğer kişilere %10 indirim var.  burger nesnesine, indirimi fiyatı otomatik olarak hesaplayan bir metot ekleyin.
 	
 	burger nesnesine aşağıdakileri uygulayın:
 	1. burger nesnesine adı indirim olan bir metot ekleyin
@@ -45,13 +48,15 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	Örnek: burger.indirim("öğretmen") 13.5 döndürmeli ve burger.indirim("diğer") 16.2 döndürmeli
 */
 
+const burger = { 	
+	isim: "Burger",
+  	fiyat: 18,  	
+	kategori: "Öğle Yemeği", 	
+	indirim: function(indirimUygulanacakMüsteriTipi) { 	
+	return (indirimUygulanacakMüsteriTipi === "öğretmen") || (indirimUygulanacakMüsteriTipi === "öğrenci") ? this.fiyat * 0.75 : this.fiyat * 0.9;
+	} 
+	 }
 
-const burger = {
-	isim: "Burger", 
-	fiyat: 18, 
-	kategori: "Öğle Yemeği", 
-
-}
 
 
 
@@ -71,6 +76,7 @@ const degerlendirmeler = [
 	Yukarıdaki degerlendirmeler dizisini(array) kullanarak:
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
 */
+console.log(degerlendirmeler[degerlendirmeler.findIndex(x => x.isim === "Ahmet")])
 
 
 
@@ -80,7 +86,8 @@ const degerlendirmeler = [
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
 */
 
-
+degerlendirmeler[degerlendirmeler.findIndex(x=> x.isim === "Reyna")].geribildirim = "Harika vakit geçirdim,burayı seviyorum";
+console.log(degerlendirmeler)
 
 /*  Görev 5: 
 	isim, puan, geribildirim'i içeren bir değerlendirme nesnesi oluşturup, yeni değerlendirmeyi mevcut dizinin(array) sonuna ekleyip sonuç dizisini döndüren bir fonksiyon tanımlayın. 
@@ -94,8 +101,14 @@ const degerlendirmeler = [
 */
 
 
-function DegerledirmeEkle(/*Kodlar buraya */){
-	/*Kodlar buraya */
+function DegerledirmeEkle(MusteriDegerlendirmeDizisi,musteriIsmi,musteriPuani,musteriGeribildirimi){
+	MusteriDegerlendirmeDizisi.push({
+	isim: musteriIsmi,
+	puan: musteriPuani,
+	geribildirim: müsteriGeribildirimi,
+})
+
+	return MusteriDegerlendirmeDizisi;
 	
 }
 
@@ -112,10 +125,16 @@ function DegerledirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function AnahtardanDegerlendirmeAl(newArray, kisi){
+
+for(let i = 0 ; i < newArray.length ; i++){console.log("isimler" , newArray[i].isim)}
+const elifdata = newArray[kisi];
+return `${elifdata.isim} isimli kişi,${elifdata.puan} puanı verdi ve şunları yazdı:${elifdata.geribildirim}`
 
 }
+console.log(AnahtardanDegerlendirmeAl(degerlendirmeler,3))
+	
+
 
 
 
@@ -130,11 +149,12 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 	Örnek: SonDegerlendirmeyiAl(degerlendirmeler) şunu döndürmeli: "Reyna isimli kişi 3.5 puan verdi ve şunları yazdı: bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım".
 	Not: Eğer 4. görevi başarıyla yaptıysanız kişinin geribildirimi boş görünmemeli
 */
+function SonDegerlendirmeyiAl(parameter) {
+	const degisken = parameter[parameter.length-1]
+return degisken.isim + "isimli kişi"+ degisken.puan + "puan verdi ve şunları yazdı:" + degisken.geribildirim
+}
 
-
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
-} 
+console.log(SonDegerlendirmeyiAl(degerlendirmeler))
 
 
 
